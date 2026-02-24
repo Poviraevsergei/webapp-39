@@ -1,4 +1,4 @@
-package com.tms;
+package com.tms.servlets;
 
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -23,6 +23,7 @@ public class ByeServlet extends HttpServlet {
     //Service - отрабатывает при каждом запросе, определяет какой метод(doGet doPost ... ) вызвать.
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println();
         super.service(req, resp); //НЕ УДАЛЯТЬ !
         System.out.println("Bye Service method");
     }
@@ -37,7 +38,7 @@ public class ByeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("name");   //не путать с req.getAttribute() !!!
 
-        System.out.println("Возвращаем страницу hello-page.html");
+        System.out.println("Return the page hello-page.html");
 
         //Как вернуть страницу из WEB-INF
         req.getRequestDispatcher("/WEB-INF/pages/bye-page.html").forward(req, resp);
