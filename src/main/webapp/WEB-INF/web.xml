@@ -2,26 +2,9 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app version="3.0">
+<web-app>
   <display-name>Archetype Created Web Application</display-name>
-
-  <filter>
-    <filter-name>firstFilter</filter-name>
-    <filter-class>com.tms.filters.MyFirstServletFilter</filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>firstFilter</filter-name>
-    <servlet-name>hello-servlet-name</servlet-name>
-  </filter-mapping>
-
-  <servlet>
-    <servlet-name>hello-servlet-name</servlet-name>
-    <servlet-class>com.tms.servlets.HelloServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>hello-servlet-name</servlet-name>
-    <url-pattern>/hello</url-pattern>
-  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+  </welcome-file-list>
 </web-app>
