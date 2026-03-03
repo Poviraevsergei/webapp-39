@@ -4,13 +4,16 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+#login-body {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: #e4e4e4;
 }
 
 .login-container {
@@ -77,34 +80,11 @@ button:active {
     transform: scale(0.98);
 }
 
-.forgot-password {
-    text-align: center;
-    margin-top: 20px;
+.header-buttons {
+    padding-top: 20px;
+    padding-bottom: 50px;
 }
 
-.forgot-password a {
-    color: #667eea;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s;
-}
-
-.forgot-password a:hover {
-    color: #5a67d8;
-    text-decoration: underline;
-}
-
-.error-message {
-    background-color: #fee;
-    color: #c33;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    text-align: center;
-    display: none;
-}
-
-.error-message.show {
-    display: block;
+#person-photo {
+    max-width: 100%;
 }
