@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         if (validator.validateUsernameAndPassword(username, password)) {
-            System.out.println("Успешный логин пользователя: " + username);
+            System.out.println("Success login: " + username);
             req.getSession().setAttribute("username", username);
             resp.sendRedirect(req.getContextPath() + "/todo");
         } else {

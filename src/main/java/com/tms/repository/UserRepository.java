@@ -23,4 +23,8 @@ public class UserRepository {
     public String getPasswordByUsername(String username) {
         return users.get(username);
     }
+
+    public boolean isUsernameExist(String username) {
+        return users.containsKey(username);
+    }
 }
