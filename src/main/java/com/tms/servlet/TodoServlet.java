@@ -22,7 +22,8 @@ public class TodoServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req,
+                         HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("tasks", getUserTasks(req));
         getServletContext().getRequestDispatcher("/WEB-INF/pages/todo.jsp").forward(req, resp);
     }
@@ -46,12 +47,12 @@ public class TodoServlet extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/pages/todo.jsp").forward(req, resp);
     }
 
-    private Set<String> getUserTasks(HttpServletRequest req){
+    private Set<String> getUserTasks(HttpServletRequest req) {
         String username = getUsername(req);
         return taskRepository.getTasksByUsername(username);
     }
 
-    private String getUsername(HttpServletRequest req){
+    private String getUsername(HttpServletRequest req) {
         return req.getSession().getAttribute("username").toString();
     }
 }
