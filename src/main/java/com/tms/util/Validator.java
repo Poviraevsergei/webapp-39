@@ -2,6 +2,8 @@ package com.tms.util;
 
 import com.tms.repository.UserRepository;
 
+import java.util.Optional;
+
 public class Validator {
     private final UserRepository userRepository;
 
@@ -19,7 +21,7 @@ public class Validator {
             return false;
         }
 
-        String passwordFromDb = userRepository.getPasswordByUsername(username);
-        return passwordInput.equals(passwordFromDb);
+        Optional<String> passwordFromDb = userRepository.getPasswordByUsername(username);
+        return passwordFromDb.isPresent() && passwordInput.equals(passwordFromDb.get());
     }
 }

@@ -1,5 +1,6 @@
 package com.tms.servlet;
 
+import com.tms.model.Task;
 import com.tms.repository.TaskRepository;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @WebServlet("/todo")
 public class TodoServlet extends HttpServlet {
@@ -30,17 +32,14 @@ public class TodoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Set<String> tasks = getUserTasks(req);
         String addTaskValue = req.getParameter("addTask");
         String removeTaskValue = req.getParameter("deleteTask");
 
         if (addTaskValue != null) {
-            tasks.add(addTaskValue);
-            taskRepository.updateTaskList(tasks, getUsername(req));
+            taskRepository.addTaskByUsername(addTaskValue, getUsername(req));
         }
         if (removeTaskValue != null) {
-            tasks.remove(removeTaskValue);
-            taskRepository.updateTaskList(tasks, getUsername(req));
+            taskRepository.removeTask(removeTaskValue, getUsername(req));
         }
 
         req.setAttribute("tasks", getUserTasks(req));
@@ -49,7 +48,8 @@ public class TodoServlet extends HttpServlet {
 
     private Set<String> getUserTasks(HttpServletRequest req) {
         String username = getUsername(req);
-        return taskRepository.getTasksByUsername(username);
+        Set<Task> tasks = taskRepository.getTasksByUsername(username);
+        return tasks.stream().map(Task::getMessage).collect(Collectors.toSet());
     }
 
     private String getUsername(HttpServletRequest req) {
