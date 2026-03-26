@@ -4,6 +4,7 @@ import com.tms.model.Task;
 import com.tms.util.DatabaseConfig;
 import com.tms.util.SqlCommands;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,24 +29,37 @@ public class TaskRepository {
 
     public boolean addTaskByUsername(String taskMessage, String username) {
         try {
+            connection.setAutoCommit(false);
             PreparedStatement preparedStatement = connection.prepareStatement(SqlCommands.ADD_NEW_TASK_BY_USERNAME);
             preparedStatement.setString(1, taskMessage);
             preparedStatement.setString(2, username);
-            int result = preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate(); //autoCommit=true-применялись изменения
+            connection.commit(); //autoCommit=false-применялись изменения
             return result > 0;
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                throw new RuntimeException(ex);
+            }
             System.out.println(e.getMessage());
             return false;
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
-    public boolean removeTask(String taskMessage, String username) {
+    public boolean removeTaskByUsername(String taskMessage, String username) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SqlCommands.REMOVE_TASK_BY_USERNAME);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, taskMessage);
-            int result = preparedStatement.executeUpdate();
-            return result > 0;
+            CallableStatement statement = connection.prepareCall(SqlCommands.REMOVE_TASK_BY_USERNAME);
+            statement.setString(1, username);
+            statement.setString(2, taskMessage);
+            return statement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;

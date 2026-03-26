@@ -39,7 +39,7 @@ public class TodoServlet extends HttpServlet {
             taskRepository.addTaskByUsername(addTaskValue, getUsername(req));
         }
         if (removeTaskValue != null) {
-            taskRepository.removeTask(removeTaskValue, getUsername(req));
+            taskRepository.removeTaskByUsername(removeTaskValue, getUsername(req));
         }
 
         req.setAttribute("tasks", getUserTasks(req));
