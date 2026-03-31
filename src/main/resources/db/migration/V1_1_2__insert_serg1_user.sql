@@ -1,0 +1,1 @@
+INSERT INTO users(id,first_name,age,created,username,password) VALUES (DEFAULT,'Serg1',18,now(),'serg1','serg1')
